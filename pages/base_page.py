@@ -1,8 +1,10 @@
 """Базовая страница, от которой будут унаследованы все остальные классы.
     В ней мы опишем вспомогательные методы для работы с драйвером"""
 import math
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
@@ -40,3 +42,30 @@ class BasePage:
         except NoAlertPresentException:
             print("No second alert presented")
 
+    """Метод проверяет, что элемент не появляется на странице в течение заданного времени"""
+    def is_not_element_present(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return True
+
+        return False
+
+    """Метод проверяет, что элемент исчезает со странице в течение заданного времени"""
+    def is_disappeared(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout, 1, TimeoutException). \
+                until_not(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return False
+
+        return True
+
+    # def should_not_be_success_message(self, how, what, timeout=4):
+    #     try:
+    #         WebDriverWait(self.browser, timeout, 1, TimeoutException). \
+    #             until_not(EC.presence_of_element_located((how, what)))
+    #     except TimeoutException:
+    #         return False
+    #
+    #     return True
