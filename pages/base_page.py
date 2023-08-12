@@ -1,6 +1,8 @@
 """Базовая страница, от которой будут унаследованы все остальные классы.
     В ней мы опишем вспомогательные методы для работы с драйвером"""
+import math
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException
 
 
 class BasePage:
@@ -12,7 +14,7 @@ class BasePage:
     """Метод открытия страницы:"""
     def open(self):
         self.browser.get(self.url)
-        self.browser.maximize_window()
+        # self.browser.maximize_window()
 
     """Метод перехвата исключения 'NoSuchElementException' """
     # 2 аргумента: как (how) искать (css, id, xpath и тд) и что (what) искать (строку-селектор)
@@ -22,4 +24,19 @@ class BasePage:
         except (NoSuchElementException):
             return False
         return True
+
+    """Метод для получения проверочного кода"""
+    def solve_quiz_and_get_code(self):
+        alert = self.browser.switch_to.alert
+        x = alert.text.split(" ")[2]
+        answer = str(math.log(abs((12 * math.sin(float(x))))))
+        alert.send_keys(answer)
+        alert.accept()
+        try:
+            alert = self.browser.switch_to.alert
+            alert_text = alert.text
+            print(f"Your code: {alert_text}")
+            alert.accept()
+        except NoAlertPresentException:
+            print("No second alert presented")
 
