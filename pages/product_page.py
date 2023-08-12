@@ -17,9 +17,19 @@ class ProductPage(BasePage):
         assert product_name == message_about_adding, "No product's name in the message about adding"
         print("Product's name in the message about adding")
 
+    # Проверка цены товара в сообщении со стоимостью корзины
     def should_be_message_basket_total(self):
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         message_basket_total = self.browser.find_element(*ProductPageLocators.MESSAGES_BASKET_PRICE).text
         assert product_price == message_basket_total, "Wrong product's price added to basket"
         print("Product's price added to basket")
+
+    # Проверка отсутствия название товара в сообщении о добавлении
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGES_PRODUCT_ADDED), "Success message about adding"
+        print('OK, No success message about adding')
+
+    def should_disappear_of_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.MESSAGES_PRODUCT_ADDED), "Success message not disappeared"
+        print('OK, success message disappeared')
 
