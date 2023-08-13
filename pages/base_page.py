@@ -4,6 +4,7 @@ import math
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from .locators import BasePageLocators
 
 
 class BasePage:
@@ -60,3 +61,12 @@ class BasePage:
 
         return True
 
+    """Переходим на страницу логина"""
+    def go_to_login_page(self):
+        login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        # символ *, указывает на то, что мы передали именно пару, и этот кортеж нужно распаковать
+        login_link.click()
+
+    """Проверка ссылки на страницу логина"""
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
