@@ -24,11 +24,12 @@ class ProductPage(BasePage):
         assert product_price == message_basket_total, "Wrong product's price added to basket"
         print("Product's price added to basket")
 
-    # Проверка отсутствия название товара в сообщении о добавлении
+    # Проверка отсутствия сообщения об успешном добавлении товара
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.MESSAGES_PRODUCT_ADDED), "Success message about adding"
         print('OK, No success message about adding')
 
+    # Проверка, что сообщения об успешном добавлении товара исчезает
     def should_disappear_of_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.MESSAGES_PRODUCT_ADDED), "Success message not disappeared"
         print('OK, success message disappeared')
