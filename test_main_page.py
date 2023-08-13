@@ -5,8 +5,9 @@ from .pages.basket_page import BasketPage
 
 link = "http://selenium1py.pythonanywhere.com/"
 
+
 @pytest.mark.login_guest
-class TestLoginFromMainPage:
+class TestLoginFromMainPage:   # чтобы запустить только методы этого класса, в вызов добавить: -m login_guest
     def test_guest_can_go_to_login_page(self, browser):
         page = MainPage(browser,
                         link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
