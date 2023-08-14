@@ -1,6 +1,5 @@
 """Класс связанный с главной страницей интернет-магазина"""
 from .base_page import BasePage
-from .locators import MainPageLocators
 
 
 class MainPage(BasePage):

@@ -19,7 +19,6 @@ class BasePage:
         # self.browser.maximize_window()
 
     """Метод перехвата исключения 'NoSuchElementException' """
-    # 2 аргумента: как (how) искать (css, id, xpath и тд) и что (what) искать (строку-селектор)
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
@@ -64,7 +63,6 @@ class BasePage:
     """Переходим на страницу логина"""
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
-        # символ *, указывает на то, что мы передали именно пару, и этот кортеж нужно распаковать
         login_link.click()
 
     """Проверка ссылки на страницу логина"""
