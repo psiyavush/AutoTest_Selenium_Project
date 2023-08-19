@@ -6,6 +6,11 @@
 Должно остаться в название только "AutoTest_Selenium_Project".**
 *  В принципе Pycharm сам выдаст сообщение о подтягивание зависимостей из requirements.txt.
 Но если вдруг этого не произошло, или вообще для подстраховки, используйте код: **pip install -r requirements.txt**
+* Команды запуска
+   * **pytest -v -s --tb=line test_main_page.py** и **pytest -v -s --tb=line test_product_page.py** 
+   (language и browser_name заданы по умолчанию)
+   * **pytest -v --tb=line -s -m login_guest** запуск тестов с маркировкой _login_guest_
+   * **pytest -v --tb=line -s -m need_review** запуск тестов с маркировкой _need_review_
 
 ## Файлы Тесты Проекта
 * test_main_page.py - Тесты главной страницы
@@ -23,4 +28,3 @@
 * conftest.py - Файл хранения фикстур
 * pages/locators.py - Здесь, внешние переменные для классов PageObject
 * pytest.ini - файл для регистрации меток
-
